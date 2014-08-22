@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2014-08-22
+  hour: 1
+  quarter: 1
+  event: MyString
+  note: MyText
+
+two:
+  day: 2014-08-22
+  hour: 1
+  quarter: 1
+  event: MyString
+  note: MyText

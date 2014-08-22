@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @time_record.day %>
+</p>
+
+<p>
+  <strong>Hour:</strong>
+  <%= @time_record.hour %>
+</p>
+
+<p>
+  <strong>Quarter:</strong>
+  <%= @time_record.quarter %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @time_record.event %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @time_record.note %>
+</p>
+
+<%= link_to 'Edit', edit_time_record_path(@time_record) %> |
+<%= link_to 'Back', time_records_path %>

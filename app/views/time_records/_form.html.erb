@@ -1,0 +1,37 @@
+<%= form_for(@time_record) do |f| %>
+  <% if @time_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_record.errors.count, "error") %> prohibited this time_record from being saved:</h2>
+
+      <ul>
+      <% @time_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :day %><br>
+    <%= f.date_select :day %>
+  </div>
+  <div class="field">
+    <%= f.label :hour %><br>
+    <%= f.number_field :hour %>
+  </div>
+  <div class="field">
+    <%= f.label :quarter %><br>
+    <%= f.number_field :quarter %>
+  </div>
+  <div class="field">
+    <%= f.label :event %><br>
+    <%= f.text_field :event %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
