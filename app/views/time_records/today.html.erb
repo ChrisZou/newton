@@ -10,20 +10,18 @@
     </thead>
 
     <tbody>
-    <% @time_records.each do |time_record| %>
-        <tr>
-        <td><%= time_record.hour %></td>
-        <td><%= time_record.note %></td>
-        <td><%= text_field_tag "q1" %></td>
-        <td><%= text_field_tag "q2" %></td>
-        <td><%= text_field_tag "q3" %></td>
-        <td><%= text_field_tag "q4" %></td>
-        <td><%= link_to 'Show', time_record %></td>
-        <td><%= link_to 'Edit', edit_time_record_path(time_record) %></td>
-        <td><%= link_to 'Destroy', time_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+    <div id="msg"></div>
+    <% for hour in 6..23 %>
+      <tr>
+        <td><%= hour %></td>
+        <% for quarter in 1..4 %>
+            <% key = hour.to_s+"-"+quarter.to_s %>
+          <td> <%= text_field_tag key, @time_records_hash[key] , class: 'record_textfield' %></td>
+        <% end%>
+      </tr>
     <% end %>
     </tbody>
+
 </table>
 
 <br>

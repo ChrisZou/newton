@@ -15,9 +15,17 @@ class TimeRecordsController < ApplicationController
 
   def today
       @time_records = TimeRecord.where(day: Date.today)
+      @time_records_hash = {}
+      @time_records.each do |record|
+        @time_records_hash[record.hour.to_s+"-"+record.quarter.to_s] = record.event
+      end
   end
-      
-  
+
+
+  def get_record(day, hour, quarter)
+    TimeRecord.where(day: day, hour: hour, quarter: quarter)
+  end
+
   # GET /time_records/new
   def new
     @time_record = TimeRecord.new
@@ -30,12 +38,13 @@ class TimeRecordsController < ApplicationController
   # POST /time_records
   # POST /time_records.json
   def create
-    @time_record = TimeRecord.new(time_record_params)
+    @time_record = TimeRecord.new(time_record_params) 
 
     respond_to do |format|
       if @time_record.save
         format.html { redirect_to @time_record, notice: 'Time record was successfully created.' }
         format.json { render :show, status: :created, location: @time_record }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @time_record.errors, status: :unprocessable_entity }
