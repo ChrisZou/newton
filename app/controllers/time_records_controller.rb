@@ -14,11 +14,7 @@ class TimeRecordsController < ApplicationController
 
 
   def today
-      @time_records = TimeRecord.where(day: Date.today)
-      @time_records_hash = {}
-      @time_records.each do |record|
-        @time_records_hash[record.hour.to_s+"-"+record.quarter.to_s] = record.event
-      end
+      @time_records_hash = time_records_hash_for_day(Date.today)
   end
 
 
@@ -52,6 +48,33 @@ class TimeRecordsController < ApplicationController
     end
   end
 
+  def batch_create
+      day = params[:day]
+      for hour in 6..23
+          for quarter in 1..4
+              key = "#{hour}-#{quarter}"
+              event = params[key]
+              if event && event.strip.length>0
+                  record = find_record({day: day, hour: hour, quarter: quarter})
+                  if record
+                      if record.event != event
+                          record.event = event
+                          record.save
+                      end
+                  else 
+                      TimeRecord.create({day: day, hour: hour, quarter: quarter, event: event}) 
+                  end
+              end
+          end
+      end
+      redirect_to index_path
+      #time_records_hash_for_day(day)
+      #respond_to do |format|
+          #format.html{render 'today'}
+          #format.js
+      #end
+  end
+
   # PATCH/PUT /time_records/1
   # PATCH/PUT /time_records/1.json
   def update
@@ -82,12 +105,20 @@ class TimeRecordsController < ApplicationController
       @time_record = TimeRecord.find(params[:id])
     end
 
-    def get_day_records(day)
-      
+    def time_records_hash_for_day(day)
+        time_records = TimeRecord.where(day: day)
+        time_records_hash = {}
+        time_records.each do |record|
+            time_records_hash[record.hour.to_s+"-"+record.quarter.to_s] = record.event
+        end
+        return time_records_hash
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_record_params
       params.require(:time_record).permit(:day, :hour, :quarter, :event, :note)
+    end
+
+    def find_record(time_params)
+        TimeRecord.where(time_params).first
     end
 end

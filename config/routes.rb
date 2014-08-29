@@ -2,7 +2,10 @@ Rails.application.routes.draw do
     get 'main' => 'time_records#today'
     root 'time_records#today'
     get 'index' => 'time_records#today'
-  resources :time_records
+
+    post 'time_records/batch_create'
+
+    resources :time_records
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

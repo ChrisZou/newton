@@ -1,29 +1,20 @@
 <h1>Today's record</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Hour</th>
-            <th>Note</th>
-            <th colspan="3"></th>
-        </tr>
-    </thead>
+<div id="msg"></div>
 
-    <tbody>
-    <div id="msg"></div>
+<%= form_tag 'time_records/batch_create' do %>
     <% for hour in 6..23 %>
-      <tr>
-        <td><%= hour %></td>
+        <%= hour %>
         <% for quarter in 1..4 %>
             <% key = hour.to_s+"-"+quarter.to_s %>
-          <td> <%= text_field_tag key, @time_records_hash[key] , class: 'record_textfield' %></td>
+            <%= text_field_tag key, @time_records_hash[key] , class: 'record_textfield' %>
         <% end%>
-      </tr>
+        <br/>
     <% end %>
-    </tbody>
+    <%= hidden_field_tag 'day', Date.today %>
+    <%= submit_tag 'Submit' %>
+<% end %>
 
-</table>
-
-<br>
+<br/>
 
 <%= link_to 'New Time record', new_time_record_path %>
