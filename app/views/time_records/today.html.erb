@@ -1,6 +1,7 @@
 <h1>Today's record</h1>
 
 <div id="msg"></div>
+<%= text_field_tag 'date' %>
 
 <%= form_tag 'time_records/batch_create' do %>
     <% for hour in 6..23 %>
