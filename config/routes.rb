@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
     get 'main' => 'time_records#today'
-    root 'time_records#today'
-    get 'index' => 'time_records#today'
+    root 'time_records#index'
 
     post 'time_records/batch_create'
 

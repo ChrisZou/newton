@@ -4,7 +4,16 @@ class TimeRecordsController < ApplicationController
   # GET /time_records
   # GET /time_records.json
   def index
-    @time_records = TimeRecord.order(:day, :hour, :quarter)
+      if params[:day] 
+         @day = params[:day].to_date
+      else 
+         @day = Date.today
+      end
+      @time_records_hash = time_records_hash_for_day(@day)
+      respond_to do | format |
+          format.html 
+          format.js
+      end
   end
 
   # GET /time_records/1
@@ -13,9 +22,9 @@ class TimeRecordsController < ApplicationController
   end
 
 
-  def today
-      @time_records_hash = time_records_hash_for_day(Date.today)
-  end
+  #def today
+      #@time_records_hash = time_records_hash_for_day(Date.today)
+  #end
 
 
   def get_record(day, hour, quarter)
@@ -49,25 +58,27 @@ class TimeRecordsController < ApplicationController
   end
 
   def batch_create
-      day = params[:day]
+      @day = params[:day]
       for hour in 6..23
           for quarter in 1..4
               key = "#{hour}-#{quarter}"
               event = params[key]
               if event && event.strip.length>0
-                  record = find_record({day: day, hour: hour, quarter: quarter})
+                  record = find_record({day: @day, hour: hour, quarter: quarter})
                   if record
                       if record.event != event
                           record.event = event
                           record.save
                       end
                   else 
-                      TimeRecord.create({day: day, hour: hour, quarter: quarter, event: event}) 
+                      TimeRecord.create({day: @day, hour: hour, quarter: quarter, event: event}) 
                   end
               end
           end
       end
-      redirect_to index_path
+
+      @time_records_hash = time_records_hash_for_day(@day)
+      render 'index'
       #time_records_hash_for_day(day)
       #respond_to do |format|
           #format.html{render 'today'}
