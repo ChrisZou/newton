@@ -24,27 +24,20 @@ $(document).ready ->
                     console.log("failed")
                     return false
             })
-    $("#date").on 'change', (e) ->
+    $("#day").on 'change', (e) ->
         date = $(this).val()
         if date.length ==0
             return
-
-        dates = date.split('/')
-        year = dates[2]
-        month = dates[0]
-        day = dates[1]
-        date_str = year+'-'+month+'-'+day
-        window.location.replace('/time_records?day='+date_str)
-        if false 
-            $.ajax({
-                type: 'GET',
-                url: '/time_records'
-                dataType: 'script'
-                data: {day: year+'-'+month+'-'+day}
-                success: (data) ->
-                    console.log("date: "+data+":end")
-                    return false
-                error: (data) ->
-                    console.log("Failed: "+data)
-                    return false
-            })
+        #window.location.replace('/time_records?day='+date_str)
+        $.ajax({
+            type: 'GET',
+            url: '/time_records'
+            dataType: 'script'
+            data: {day: date}
+            success: (data) ->
+                console.log("date: "+data+":end")
+                return false
+            error: (data) ->
+                console.log("Failed: "+data)
+                return false
+        })

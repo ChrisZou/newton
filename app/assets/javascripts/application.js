@@ -17,5 +17,5 @@
 //= require jquery-ui
 //
 $(function() {
-    $("#date").datepicker();
+    $("#day").datepicker({ dateFormat: 'yy-mm-dd' });
 });

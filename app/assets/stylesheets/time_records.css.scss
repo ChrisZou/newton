@@ -1,3 +1,17 @@
 // Place all the styles related to the TimeRecords controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.hour {
+    padding: 10px 20px;
+    margin: 5px 0px;
+}
+
+.select_day {
+    width: 100%;
+    text-align: center
+}
+
+#container {
+    width: 800px;
+}

@@ -4,7 +4,8 @@ class TimeRecordsController < ApplicationController
   # GET /time_records
   # GET /time_records.json
   def index
-      if params[:day] 
+      day = params[:day]
+      if day
          @day = params[:day].to_date
       else 
          @day = Date.today

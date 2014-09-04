@@ -1,0 +1,6 @@
+<% for hour in (6..23) do %>
+    <% for quarter in 1..4 %>
+        <% key = "#{hour}-#{quarter}"  %>
+        $("#<%= key %>").val("<%= @time_records_hash[key] %>")
+    <% end %>
+<% end %>
