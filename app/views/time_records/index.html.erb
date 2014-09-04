@@ -1,10 +1,8 @@
-<h1>Today's record</h1>
-
 <div id="msg"></div>
 
 <%= form_tag '/time_records/batch_create', class: 'pure-form' do %>
-        <div class="select_day">
-            <%= text_field_tag 'day', @day %><br/>
+    <div class="div_select_day">
+        <%= text_field_tag 'day', @day %><br/>
     </div>
     <table>
     <% for hour in 6..23 %>
@@ -21,9 +19,7 @@
         </tr>
     <% end %>
     </table>
-    <%= submit_tag 'Submit' %>
+    <div class="div_submit">
+        <%= submit_tag 'Submit', class: "pure-button pure-button-primary" %>
+    </div>
 <% end %>
-
-<br/>
-
-<%= link_to 'New Time record', new_time_record_path %>
