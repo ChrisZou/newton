@@ -41,3 +41,5 @@ $(document).ready ->
                 console.log("Failed: "+data)
                 return false
         })
+    $("#record_textfield").click ->
+        this.select();
